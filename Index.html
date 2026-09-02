@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carls Libereist Simulator</title>
+    <style>
+        body {
+            background-color: #050d06;
+            color: #33ff33;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 { text-align: center; color: #00ff00; text-shadow: 0 0 10px #00ff00; }
+        .stats { background: #0b1d0c; padding: 10px; border: 1px solid #33ff33; margin-bottom: 20px; border-radius: 5px; }
+        .log { background: #000; border: 1px solid #33ff33; padding: 15px; height: 180px; overflow-y: auto; margin-bottom: 20px; border-radius: 5px; }
+        button {
+            display: block; width: 100%; background: #0b1d0c; color: #33ff33; border: 1px solid #33ff33;
+            padding: 12px; margin: 8px 0; font-size: 16px; cursor: pointer; font-family: inherit; border-radius: 5px;
+        }
+        button:hover { background: #33ff33; color: #000; }
+    </style>
+</head>
+<body>
+
+    <h1>[CARLS LIBEREIST V1.0]</h1>
+    
+    <div class="stats">
+        <strong>🌐 Firewall NASA:</strong> <span id="firewall">0</span>%<br>
+        <strong>🛸 Dados Roubados:</strong> <span id="dados">0</span> / 100 TB<br>
+        <strong>🪐 Nave Atlas:</strong> <span id="status-atlas">Oculta atrás de Marte</span>
+    </div>
+
+    <div class="log" id="log-box">
+        [SISTEMA ATIVO]: A sonda biomecânica infiltrou o proxy da NASA. Aguardando instruções para abrir caminho à Nave Atlas...<br>
+    </div>
+
+    <div id="botoes">
+        <button onclick="jogar('espiar')">1. Espiar Redes Orbitais (+15 TB, +10% Alerta)</button>
+        <button onclick="jogar('injetar')">2. Injetar Código Alienígena nos Satélites (+25 TB, +25% Alerta)</button>
+        <button onclick="jogar('camuflar')">3. Roteamento por Servidor Fantasma (-20% Alerta)</button>
+    </div>
+
+    <script>
+        let firewall = 0;
+        let dados = 0;
+
+        function atualizarEcrã() {
+            document.getElementById('firewall').innerText = firewall;
+            document.getElementById('dados').innerText = dados;
+            let logBox = document.getElementById('log-box');
+            logBox.scrollTop = logBox.scrollHeight;
+        }
+
+        function adicionarLog(mensagem) {
+            document.getElementById('log-box').innerHTML += "<br>" + mensagem;
+        }
+
+        function fimDeJogo(vitoria, mensagem) {
+            adicionarLog("<br><strong>" + mensagem + "</strong>");
+            document.getElementById('botoes').innerHTML = '<button onclick="window.location.reload()">Jogar Novamente</button>';
+            if(vitoria) {
+                document.getElementById('status-atlas').innerText = "EM ÓRBITA DA TERRA (MISSÃO CUMPRIDA)";
+                document.getElementById('status-atlas').style.color = "#00ff00";
+            } else {
+                document.getElementById('status-atlas').innerText = "SINAL PERDIDO (MISSAO FALHOU)";
+                document.getElementById('status-atlas').style.color = "#ff0000";
+            }
+        }
+
+        function jogar(acao) {
+            if (acao === 'espiar') {
+                dados += 15;
+                firewall += window.crypto ? Math.floor(Math.random() * 10) + 5 : 10;
+                adicionarLog("[+] Descarregando telemetria... +15 TB obtidos.");
+            } else if (acao === 'injetar') {
+                dados += 25;
+                firewall += window.crypto ? Math.floor(Math.random() * 15) + 15 : 25;
+                adicionarLog("[!] Substituindo filtros H-Alpha em Élancourt! Ponto cego criado.");
+            } else if (acao === 'camuflar') {
+                firewall -= 20;
+                if (firewall < 0) firewall = 0;
+                adicionarLog("[-] Sinal reencaminhado por Portugal. Firewall baralhada.");
+            }
+
+            atualizarEcrã();
+
+            if (firewall >= 100) {
+                firewall = 100;
+                atualizarEcrã();
+                fimDeJogo(false, "[FALHA CRÍTICA] Cibersegurança detetou a Carls Libereist. Servidores isolados. A Atlas permanece isolada no espaço.");
+            } else if (dados >= 100) {
+                dados = 100;
+                atualizarEcrã();
+                fimDeJogo(true, "[SUCESSO] Dados orbitais sintonizados! A cortina eletromagnética abriu-se e a Nave Atlas entrou na órbita terrestre!");
+            }
+        }
+    </script>
+</body>
+</html>
