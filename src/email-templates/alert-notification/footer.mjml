@@ -1,0 +1,9 @@
+<mj-section css-class="set-font">
+
+    <mj-column padding-top="44px" padding-bottom="12px">
+        <mj-text align="left" padding-top="0" padding-bottom="0">
+            © Netdata 2021 - The real-time performance and health monitoring
+        </mj-text>
+    </mj-column>
+
+</mj-section>

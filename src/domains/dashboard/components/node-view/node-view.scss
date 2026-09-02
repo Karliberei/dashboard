@@ -1,0 +1,218 @@
+:root {
+  --color-primary: #00ab44;
+  --color-accent: #00cb51;
+  --color-attention: #563d7c;
+  --color-text: #333;
+  --color-textFocus: #767676;
+  --color-disabled: transparent;
+}
+
+/* copied from main.css */
+.charts-body {
+  width: 100%;
+  flex: 0 1 auto;
+}
+
+@media (min-width: 1360px) {
+  .charts-body {
+    width: calc(100% - 263px) !important;
+    padding-left: 1% !important;
+    padding-right: 2% !important;
+  }
+}
+@media (min-width: 1200px) {
+  .charts-body {
+    width: calc(100% - 233px) !important;
+    padding-left: 1% !important;
+    padding-right: 1% !important;
+  }
+}
+@media (min-width: 992px) {
+  .charts-body {
+    width: calc(100% - 213px) !important;
+    padding-left: 1% !important;
+    padding-right: 0% !important;
+  }
+}
+/* end copy from main.css */
+
+// todo temporary,
+// we need to solve it differently when node-view will be used in the dashboard too
+$CLOUD_HEADER_HEIGHT: 56px;
+$CLOUD_SECONDARY_HEADER_HEIGHT: 64px;
+
+.node-view {
+  &__container {
+    display: flex;
+    align-items: flex-start;
+
+    /* copied from bootstrap */
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: var(--color-border);
+    background-color: var(--color-elementBackground);
+    & a {
+      color: var(--color-primary);
+      text-decoration: none;
+      &:hover, &:active {
+        color: var(--color-primary);
+        text-decoration: underline;
+      }
+    }
+    & ul {
+      padding-left: 0;
+    }
+
+    & code {
+      position: relative;
+      background: none;
+      color: var(--color-primary);
+      &:before {
+        // a hack to use color variables with background opacity
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        background-color: var(--color-primary);
+        opacity: 0.1;
+        pointer-events: none; // prevent changing cursor on code blocks
+      }
+    }
+
+    .dygraph-chart--legend-bottom .dygraph-axis-label-y {
+      text-align: start;
+    }
+
+    .dygraph-chart--legend-bottom .dygraph-title {
+      color: var(--color-main);
+      text-indent: 0;
+    }
+
+    .dashboard-section {
+      h1 {
+        color: var(--color-key);
+        margin-top: 20px;
+      }
+    }
+
+    .dashboard-section-container {
+      & > h2 {
+        color: var(--color-key);
+        margin-top: 20px;
+      }
+    }
+  }
+
+  &__sidebar-container {
+    position: relative;
+  }
+
+  &__sidebar {
+    position: sticky;
+    top: 0;
+    max-height: calc(100vh - #{$CLOUD_HEADER_HEIGHT} - #{$CLOUD_SECONDARY_HEADER_HEIGHT});
+    overflow: auto;
+    flex: 0 1 auto;
+
+    width: 230px;
+    @media (min-width: 992px) {
+      width: 240px;
+    }
+
+    @media (min-width: 1200px) {
+      width: 250px;
+    }
+
+    @media (min-width: 1360px) {
+      width: 300px;
+    }
+  }
+
+  &__sidebar-menu-li,
+  &__sidebar-submenu-li {
+    display: block;
+
+    .node-view__sidebar-link {
+      display: block;
+      padding: 4px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-border);
+      & .svg-inline--fa {
+        width: 20px;
+        text-align: center;
+      }
+    }
+
+    .node-view__sidebar-link {
+      &:hover,
+      &:focus {
+        padding-left: 19px;
+        color: var(--color-key);
+        text-decoration: none;
+        background-color: transparent;
+        border-left: 1px solid var(--color-key);
+      }
+    }
+
+    &__sidebar-menu-li--active,
+    &__sidebar-submenu-li--active {
+      .node-view__sidebar-link {
+      }
+    }
+  }
+
+  /* active menu */
+  &__sidebar-menu-li--active,
+  &__sidebar-submenu-li--active {
+    & > .node-view__sidebar-link {
+      padding-left: 18px;
+      font-weight: bold;
+      color: var(--color-key);
+      background-color: transparent;
+      border-left: 2px solid var(--color-key);
+
+      &:hover,
+      &:focus {
+        background-color: transparent;
+      }
+    }
+    & .node-view__sidebar-submenu {
+      display: block;
+    }
+  }
+
+  /* Nav: second level (shown on .active) */
+  &__sidebar-submenu {
+    display: none;
+    padding-bottom: 10px;
+  }
+
+  &__sidebar-submenu {
+    .node-view__sidebar-link {
+      padding-top: 1px;
+      padding-bottom: 1px;
+      padding-left: 30px;
+      font-size: 12px;
+      font-weight: normal;
+      &:hover,
+      &:focus {
+        padding-left: 29px;
+      }
+    }
+  }
+
+  &__sidebar-submenu &__sidebar-link:hover,
+  &__sidebar-submenu &__sidebar-link:focus {
+    padding-left: 29px;
+  }
+
+  &__sidebar-submenu-li--active {
+    .node-view__sidebar-link {
+      padding-left: 7px;
+      font-weight: 500;
+    }
+  }
+}

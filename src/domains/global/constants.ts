@@ -1,0 +1,15 @@
+import { AlarmStatus } from "domains/global/types"
+
+export const storeKey = "global"
+
+export const TEMPORARY_MAIN_JS_TIMEOUT = 1000
+
+export const MASKED_DATA = "***"
+
+export const NOTIFICATIONS_TIMEOUT = 5000
+
+export const INFO_POLLING_FREQUENCY = 5000
+
+export const CLOUD_BASE_URL_DISABLED = "CLOUD_BASE_URL_DISABLED"
+
+export const alarmStatuses: AlarmStatus[] = ["WARNING", "ERROR", "REMOVED", "UNDEFINED", "UNINITIALIZED", "CLEAR", "CRITICAL"]
